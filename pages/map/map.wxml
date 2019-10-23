@@ -1,0 +1,130 @@
+<!--pages/map/map.wxml-->
+<view class="empty_tip">
+
+  
+  <view wx:if="{{addListShow}}">
+  <cu-custom class="topbar" bgColor="bg-gradual-pink" isBack="{{true}}" bindtap="back1">
+    <view slot="backText">返回</view>
+    <view slot="content">搜索地址</view>
+  </cu-custom>
+    <view class="cu-bar search bg-white">
+      <view class="search-form round" bindtap="showAddList">
+        <view class="cuIcon-search"></view>
+        <input bindinput="getsuggest" placeholder="请输入您要搜索的地址"></input>
+      </view>
+      <view class="action" bindtap="chooseCity">{{currentRegion.district}}</view>
+    </view>
+    <!--关键词输入提示列表渲染-->
+    <view wx:for="{{suggestion}}" wx:key="index">
+      <!--绑定回填事件-->
+      <view>
+        <!--根据需求渲染相应数据-->
+        <view class="content padding-tb-sm solids-bottom flex align-center">
+          <view class="text-xxl"><text class="cuIcon-locationfill lg text-blue"></text></view>
+          <view class="flex-sub" bindtap="backfill" id="{{index}}" data-name="{{item.title}}">
+            <!--渲染地址title-->
+            <view class="text-black text-bold text-xl" style="text-align:left"> {{item.title}} </view>
+            <!--渲染详细地址-->
+            <view class="text-gray text-sm" style="font-size:12px;color:#666;text-align:left;">   {{item.addr}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 地图容器 -->
+  <view wx:if="{{!addListShow && !chooseCity}}">
+    <cu-custom bgColor="bg-gradual-pink" id="customBar">
+      <view slot="content">垃圾桶地图</view>
+    </cu-custom>
+
+    <view class="top" id="top" style="top:{{customBar}}px">
+      <view class="cu-bar search bg-white">
+        <view class="search-form round" bindtap="showAddList">
+          <view class="cuIcon-search"></view>
+          <view placeholder="搜索">搜索</view>
+        </view>
+        <view class="action" bindtap="chooseCity">{{currentRegion.district}}</view>
+      </view>
+    </view>
+
+    <map id="map" longitude="{{longitude}}" latitude="{{latitude}}" scale="14" controls="{{controls}}" bindcontroltap="controltap" markers="{{markers}}" bindmarkertap="markertap" bindregionchange="regionchange" show-location style="width: 100%; height: {{windowHeight*4/7}}px;"></map>
+  
+  <!-- 垃圾桶信息 -->
+  <view class="cu-bar bg-white solid-bottom" id="cu-bar">
+    <view class="action">
+      <text class="cuIcon-title text-orange "></text> 垃圾桶列表
+    </view>
+  </view>
+  <scroll-view style="height: {{scrollViewHeight}}px" scroll-y="true">
+
+    <view class="cu-list grid col-{{gridCol}} no-border">
+      <view class="cu-item" wx:for="{{item_list}}" wx:key wx:if="{{index<gridCol*2}}">
+      <navigator url='../new/new?id={{index}}'>
+        <view class="cuIcon-{{item.service == 'false'?'deletefill':'warnfill'}} text-{{(item.capacity < 50)?'green':''}} text-{{(item.capacity >= 50 && item.capacity < 90)?'orange':'green'}} text-{{(item.capacity >= 90)?'red':''}}">
+          <view class="cu-tag badge">
+            <block>{{item.capacity}}%</block>
+          </view>
+        </view>
+        <text>{{item.id}}</text>
+      </navigator>
+      </view>
+    </view>
+
+  </scroll-view>
+
+  </view>
+
+  <view class="region-box bg-white" wx:if="{{chooseCity}}">
+    <view class="region-top" wx:if="{{!addListShow}}">
+      <cu-custom bgColor="bg-gradual-pink" isBack="{{true}}" bindtap="back2">
+        <view slot="backText">返回</view>
+        <view slot="content">选择城市</view>
+      </cu-custom>
+    </view>
+    <view class="grid padding-sm margin-tb-sm text-center bg-white">
+      <button class="cu-btn round line bordersize-gray shadow" bindtap="showProvince">{{currentProvince}}</button>
+      <button class="cu-btn round line bordersize-gray shadow" bindtap="showCity" wx:if="{{!regionShow.province}}" bindtap="showCity"> {{currentCity}}</button>
+      <button class="cu-btn round line bordersize-gray shadow" bindtap="showDistrict" wx:if="{{regionShow.district}}" bindtap="showDistrict">{{currentDistrict}}</button>
+    </view>
+    <!-- <scroll-view scroll-y> -->
+
+      <view class="cu-list menu sm-border">
+        <view class="cu-list menu sm-border" wx:if="{{regionShow.province}}">
+          <view class="cu-item" wx:for="{{regionData.province}}" wx:key="index">
+            <view data-id="{{item.id}}" data-name="{{item.fullname}}" bindtap="selectProvince">
+              <view class="content">
+                <text class="cuIcon-locationfill text-grey"></text>
+                <text>{{item.fullname}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="cu-list menu sm-border" wx:if="{{regionShow.city}}">
+          <view class="cu-item" wx:for="{{regionData.city}}" wx:key="index">
+            <view data-id="{{item.id}}" data-name="{{item.fullname}}" bindtap="selectCity">
+              <view class="content">
+                <text class="cuIcon-locationfill text-grey"></text>
+                <text>{{item.fullname}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="cu-list menu sm-border" wx:if="{{regionShow.district}}">
+          <view class="cu-item" wx:for="{{regionData.district}}" wx:key="index">
+            <view data-id="{{item.id}}" data-name="{{item.fullname}}" data-latitude="{{item.location.lat}}" data-longitude="{{item.location.lng}}" bindtap="selectDistrict">
+              <view class="content">
+                <text class="cuIcon-locationfill text-grey"></text>
+                <text>{{item.fullname}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    <!-- </scroll-view> -->
+  </view>
+</view>
+
+
+
+

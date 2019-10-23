@@ -1,0 +1,45 @@
+{
+  "pages": [
+    "pages/map/map",
+    "pages/about/about",
+    "pages/new/new"
+  ],
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置接口的效果展示"
+    }
+  },
+  "plugins": {
+    "chooseLocation": {
+      "version": "1.0.0",
+      "provider": "wx76a9a06e5b4e693e"
+    }
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/map/map",
+        "text": "地图",
+        "iconPath": "/images/tabbar/map.png",
+        "selectedIconPath": "/images/tabbar/map_cur.png"
+      },
+      {
+        "pagePath": "pages/about/about",
+        "text": "关于",
+        "iconPath": "/images/tabbar/about.png",
+        "selectedIconPath": "/images/tabbar/about_cur.png"
+      }
+    ]
+  },
+  "window": {
+    "navigationStyle": "custom"
+  },
+  "usingComponents": {
+    "cu-custom": "/colorui/components/cu-custom",
+    "wux-button": "/dist/button/index",
+    "wux-circle": "/dist/circle/index",
+    "wux-alert": "/dist/alert/index",
+    "wux-icon": "/dist/icon/index"
+  },
+  "sitemapLocation": "sitemap.json"
+}

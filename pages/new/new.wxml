@@ -1,0 +1,52 @@
+<!--pages/new/new.wxml-->
+<cu-custom bgColor="bg-gradual-pink" isBack="{{true}}">
+  <view slot="backText">返回</view>
+  <view slot="content">垃圾桶详情</view>
+</cu-custom>
+
+<form bindsubmit="formSubmit" bindreset="formReset">
+
+<view class="cu-list menu sm-border card-menu margin-top">
+
+  <wux-alert theme="assertive" wx:if="{{service=='true'}}">
+    <wux-icon wux-class="thumb" type="ios-close-circle-outline" size="20" color="#fff" slot="header" />
+    <text decode="{{true}}">&nbsp;正在检修</text>
+  </wux-alert>
+
+  <view class="cu-item">
+    <view class="content">
+      <text class="cuIcon-deletefill text-text-{{(capacity < 50)?'green':''}} text-{{(capacity >= 50 && capacity < 90)?'orange':'green'}} text-{{(capacity >= 90)?'red':''}}"></text>
+      <text class="text-grey">{{Id}}号垃圾桶</text>
+    </view>
+  </view>
+  
+  <view class="cu-item">
+    <view class="content">
+        <text class="cuIcon-round text-blue margin-right-xs"></text>
+        <text class="text-grey"> 垃圾桶容量</text>
+      <wux-circle class="flex justify-center" percent="{{capacity}}" color="{{color}}">{{capacity + '%'}}</wux-circle>
+      <br/>
+    </view>
+  </view>
+
+  <view class="cu-item">
+    <view class="content padding-tb-sm">
+      <view>
+        <text class="cuIcon-warn text-blue margin-right-xs"></text> 检修情况</view>
+      <view class="text-gray text-sm">
+        <text class="cuIcon-infofill margin-right-xs"></text> 点击switch进行检修</view>
+    </view>
+    <view class="action">
+      <switch class="sm" bindchange="switchService" name="service"/>
+    </view>
+  </view>
+
+</view>
+
+<view class="box padding solid{{size?'s':''}}-left margin-top">
+  <view class="cu-bar btn-group">
+    <button class="cu-btn block bg-green margin-tb-sm lg" form-type='submit' name='type' loading='{{buttonloading}}'>确认</button>
+  </view>
+</view>
+
+</form>
