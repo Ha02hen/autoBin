@@ -61,7 +61,7 @@
     <view class="cu-list grid col-{{gridCol}} no-border">
       <view class="cu-item" wx:for="{{item_list}}" wx:key wx:if="{{index<gridCol*2}}">
       <navigator url='../new/new?id={{index}}'>
-        <view class="cuIcon-{{item.service == 'false'?'deletefill':'warnfill'}} text-{{(item.capacity < 50)?'green':''}} text-{{(item.capacity >= 50 && item.capacity < 90)?'orange':'green'}} text-{{(item.capacity >= 90)?'red':''}}">
+        <view class="cuIcon-{{item.service == 'false'?'deletefill':'warnfill'}} text-{{(item.capacity < 50)?'green':''}} text-{{(item.capacity >= 50 && item.capacity < 90)?'orange':''}} text-{{(item.capacity >= 90)?'red':''}}">
           <view class="cu-tag badge">
             <block>{{item.capacity}}%</block>
           </view>
