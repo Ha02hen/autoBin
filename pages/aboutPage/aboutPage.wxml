@@ -1,0 +1,24 @@
+<!--pages/aboutPage/aboutPage.wxml-->
+<cu-custom bgColor="bg-gradual-white" isBack="{{true}}"><view slot="backText">返回</view><view slot="content">关于</view></cu-custom>
+
+<view class="margin-sm bg-white padding-xl radius shadow-lg">
+  <view class='text-center margin-bottom text-lg  text-grey'>关于小程序</view>
+  <view class="text-content margin-top-lg">
+    <view>Hi！同学~欢迎使用垃圾桶地图！</view>
+    <view class='margin-top-sm'>该项目是基于ColorUI开发的小程序，主要用于监控垃圾桶的状态。数据都是通过Raspberry Pi传输完成，网络通信采用4G移动网络。以帮助技术人员更好地监控和维护垃圾桶。</view>
+  </view>
+</view>
+
+<view class="margin-sm bg-white padding-xl radius shadow-lg">
+  <view class='text-center margin-bottom text-lg  text-grey'>功能简介</view>
+  <view class="text-content margin-top-lg">
+    <view>用户可以通过小程序查看垃圾桶的位置，检查垃圾桶状态，提交垃圾桶检修请求将可分类垃圾桶的管理可视化、简化、丰富化。也可以接受管理员的垃圾桶检修消息，快速维修垃圾桶。</view>
+  </view>
+</view>
+
+<view class="margin-sm bg-white padding-xl radius shadow-lg">
+  <view class='text-center margin-bottom text-lg  text-grey'>关于我们</view>
+  <view class="text-content margin-top-lg">
+    <view>我们是来自南京大学金陵学院的团队。本团队作为高校学生团队，深感垃圾分类的任务重大。开发这个小程序，希望能够为方便垃圾桶的管理。更多问题与小程序优化建议，欢迎联系我们吧！</view>
+  </view>
+</view>

@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    item_list: []
   },
 
   /**
@@ -26,7 +26,25 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    var that = this
+    wx.request({
+      // url: 'http://106.54.103.171/test.php',
+      url: 'https://hao2hen.com/getMessage.php',
+      method: 'GET',
+      header: { 'Content-Type': 'application/json' },
+      data: {},
+      success: function (res) {
+        // success
+        console.log(res.data);//打印请求返回的结果
+        that.setData({ item_list: res.data })
+      },
+      fail: function (res) {
+        // fail
+      },
+      complete: function (res) {
+        // complete
+      }
+    })
   },
 
   /**

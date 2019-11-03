@@ -1,2 +1,24 @@
 <!--pages/message/message.wxml-->
-<text>pages/message/message.wxml</text>
+<view>
+  <view class="cu-bar bg-white">
+    <view class="action">
+      <text class="cuIcon-title text-green"></text>
+      <text>消息</text>
+    </view>
+  </view>
+
+  <view wx:for="{{item_list}}" wx:key>
+    <view class="cu-timeline">
+      <view class="cu-time">{{item.date}}</view>
+      <view class="cu-item">
+        <view class="content">
+          <view class="cu-capsule radius">
+            <view class="cu-tag bg-cyan">{{item.datetime}}</view>
+            <view class="cu-tag line-cyan">{{item.time}}</view>
+          </view>
+          <view class="margin-top">{{item.message}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
