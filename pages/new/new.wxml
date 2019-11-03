@@ -1,5 +1,5 @@
 <!--pages/new/new.wxml-->
-<cu-custom bgColor="bg-gradual-pink" isBack="{{true}}">
+<cu-custom bgColor="bg-gradual-white" isBack="{{true}}">
   <view slot="backText">返回</view>
   <view slot="content">垃圾桶详情</view>
 </cu-custom>
@@ -16,7 +16,7 @@
   <view class="cu-item">
     <view class="content">
       <text class="cuIcon-deletefill text-text-{{(capacity < 50)?'green':''}} text-{{(capacity >= 50 && capacity < 90)?'orange':'green'}} text-{{(capacity >= 90)?'red':''}}"></text>
-      <text class="text-grey">{{Id}}号垃圾桶</text>
+      <text class="text-grey">{{Id}} 号垃圾桶</text>
     </view>
   </view>
   
@@ -32,7 +32,7 @@
   <view class="cu-item">
     <view class="content padding-tb-sm">
       <view>
-        <text class="cuIcon-warn text-blue margin-right-xs"></text> 检修情况</view>
+        <text class="cuIcon-warn text-blue margin-right-xs"></text> 是否需要检修</view>
       <view class="text-gray text-sm">
         <text class="cuIcon-infofill margin-right-xs"></text> 点击switch进行检修</view>
     </view>

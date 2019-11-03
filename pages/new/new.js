@@ -44,7 +44,7 @@ Page({
           if(that.data.capacity < 90)
           {
             that.setData({
-              color: '#f07e13'
+              color: '#FFD700'
             })
           }
           else
