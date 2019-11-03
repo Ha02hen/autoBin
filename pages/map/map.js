@@ -73,7 +73,7 @@ Page({
         for(var i = 0; i < res.data.length; i++)
         {
           markers = markers.concat({
-            iconPath: "/images/trash.png",
+            iconPath: "../../images/trash.png",
             id: parseInt(res.data[i].id),
             callout: {
               content: res.data[i].id,
@@ -120,7 +120,7 @@ Page({
     query.select('#customBar').boundingClientRect();
     query.select('#top').boundingClientRect();
     query.select('#map').boundingClientRect();
-    query.select('#cu-bar').boundingClientRect();
+    // query.select('#cu-bar').boundingClientRect();
 
     // 执行上面所指定的请求，结果会按照顺序存放于一个数组中，在callback的第一个参数中返回
     query.exec((res) => {
@@ -129,10 +129,11 @@ Page({
       let customBar = res[0].height
       let topHeight = res[1].height;
       let mapHeight = res[2].height;
-      let barHeight = res[3].height;
+      // let barHeight = res[3].height;
 
       // 然后就是做个减法
-      let scrollViewHeight = this.data.windowHeight - topHeight - mapHeight - barHeight - customBar;
+      let scrollViewHeight = this.data.windowHeight - topHeight - mapHeight - customBar;
+      // let scrollViewHeight = this.data.windowHeight - topHeight - mapHeight - barHeight - customBar;
 
       // 算出来之后存到data对象里面
       this.setData({
