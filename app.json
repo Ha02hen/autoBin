@@ -2,6 +2,7 @@
   "pages": [
     "pages/map/map",
     "pages/about/about",
+    "pages/message/message",
     "pages/new/new"
   ],
   "permission": {
@@ -22,6 +23,12 @@
         "text": "地图",
         "iconPath": "/images/tabbar/map.png",
         "selectedIconPath": "/images/tabbar/map_cur.png"
+      },
+      {
+        "pagePath": "pages/message/message",
+        "text": "消息",
+        "iconPath": "/images/tabbar/message.png",
+        "selectedIconPath": "/images/tabbar/message_cur.png"
       },
       {
         "pagePath": "pages/about/about",
