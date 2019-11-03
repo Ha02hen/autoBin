@@ -3,7 +3,7 @@
 
   
   <view wx:if="{{addListShow}}">
-  <cu-custom class="topbar" bgColor="bg-gradual-pink" isBack="{{true}}" bindtap="back1">
+  <cu-custom class="topbar" bgColor="bg-gradual-white" isBack="{{true}}" bindtap="back1">
     <view slot="backText">返回</view>
     <view slot="content">搜索地址</view>
   </cu-custom>
@@ -34,7 +34,7 @@
 
   <!-- 地图容器 -->
   <view wx:if="{{!addListShow && !chooseCity}}">
-    <cu-custom bgColor="bg-gradual-pink" id="customBar">
+    <cu-custom bgColor="bg-gradual-white" id="customBar">
       <view slot="content">垃圾桶地图</view>
     </cu-custom>
 
@@ -61,7 +61,7 @@
     <view class="cu-list grid col-{{gridCol}} no-border">
       <view class="cu-item" wx:for="{{item_list}}" wx:key wx:if="{{index<gridCol*2}}">
       <navigator url='../new/new?id={{index}}'>
-        <view class="cuIcon-{{item.service == 'false'?'deletefill':'warnfill'}} text-{{(item.capacity < 50)?'green':''}} text-{{(item.capacity >= 50 && item.capacity < 90)?'orange':''}} text-{{(item.capacity >= 90)?'red':''}}">
+        <view class="cuIcon-{{item.service == 'false'?'deletefill':'warnfill'}} text-{{(item.capacity < 50)?'green':''}} text-{{(item.capacity >= 50 && item.capacity < 90)?'yellow':''}} text-{{(item.capacity >= 90)?'red':''}}">
           <view class="cu-tag badge">
             <block>{{item.capacity}}%</block>
           </view>
@@ -77,7 +77,7 @@
 
   <view class="region-box bg-white" wx:if="{{chooseCity}}">
     <view class="region-top" wx:if="{{!addListShow}}">
-      <cu-custom bgColor="bg-gradual-pink" isBack="{{true}}" bindtap="back2">
+      <cu-custom bgColor="bg-gradual-white" isBack="{{true}}" bindtap="back2">
         <view slot="backText">返回</view>
         <view slot="content">选择城市</view>
       </cu-custom>

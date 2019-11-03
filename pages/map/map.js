@@ -124,7 +124,7 @@ Page({
 
     // 执行上面所指定的请求，结果会按照顺序存放于一个数组中，在callback的第一个参数中返回
     query.exec((res) => {
-      console.log(res)
+      // console.log(res)
       // 分别取出map和topbar的高度
       let customBar = res[0].height
       let topHeight = res[1].height;
@@ -183,6 +183,49 @@ Page({
             // self.nearby_search();
           },
         });
+      }
+    })
+
+
+    var that = this
+    wx.request({
+      // url: 'http://106.54.103.171/test.php',
+      url: 'https://hao2hen.com/test.php',
+      method: 'GET',
+      header: { 'Content-Type': 'application/json' },
+      data: {},
+      success: function (res) {
+        // success
+        that.setData({ item_list: res.data })
+        for (var i = 0; i < res.data.length; i++) {
+          markers = markers.concat({
+            iconPath: "/images/trash.png",
+            id: parseInt(res.data[i].id),
+            callout: {
+              content: res.data[i].id,
+              fontSize: '20',
+              padding: true,
+              color: '#444',
+              display: 'ALWAYS',
+              textAlign: 'center',
+              borderRadius: 15
+            },
+            latitude: parseFloat(res.data[i].latitude),
+            longitude: parseFloat(res.data[i].longitude),
+            width: 30,
+            height: 30
+          })
+        }
+        // console.log(markers)
+        that.setData({
+          markers: markers
+        })
+      },
+      fail: function (res) {
+        // fail
+      },
+      complete: function (res) {
+        // complete
       }
     })
   },
