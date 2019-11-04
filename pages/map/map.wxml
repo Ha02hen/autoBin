@@ -34,30 +34,40 @@
 
   <!-- 地图容器 -->
   <view wx:if="{{!addListShow && !chooseCity}}">
-    <cu-custom bgColor="bg-gradual-white" id="customBar">
+    <!-- <cu-custom bgColor="bg-gradual-white" id="customBar">
       <view slot="content">垃圾桶地图</view>
-    </cu-custom>
+    </cu-custom> -->
 
     
 
-    <map id="map" longitude="{{longitude}}" latitude="{{latitude}}" scale="14" controls="{{controls}}" bindcontroltap="controltap" markers="{{markers}}" bindmarkertap="markertap" bindregionchange="regionchange" show-location style="width: 100%; height: {{windowHeight*9/14}}px;"></map>
+    <map id="map" longitude="{{longitude}}" latitude="{{latitude}}" scale="14" controls="{{controls}}" bindcontroltap="controltap" markers="{{markers}}" bindmarkertap="markertap" bindregionchange="regionchange" show-location style="width: 100%; height: {{windowHeight*6/7}}px;" polyline="{{polyline}}">
+      <cover-view style="position:fixed; bottom:{{scrollViewHeight}}px; width:100%">
+        <cover-view class="cu-bar bg-white search">
+          <cover-view class="search-form radius" bindtap="showAddList">
+            <cover-view class="cuIcon-search"></cover-view>
+            <cover-view type="text" placeholder="搜索地址" confirm-type="search">搜索地址</cover-view>
+          </cover-view>
+        </cover-view>
+      </cover-view>
+    </map>
   
   <!-- 垃圾桶信息 -->
-  <view class="top" id="top" style="top:{{customBar}}px">
-    <!-- <view class="cu-bar search bg-white">
+  <!-- <view id="top">
+    <view class="cu-bar search bg-white">
       <view class="search-form round" bindtap="showAddList">
         <view class="cuIcon-search"></view>
         <view placeholder="搜索">搜索</view>
       </view>
       <view class="action" bindtap="chooseCity">{{currentRegion.district}}</view>
-    </view> -->
+    </view>
     <view class="cu-bar bg-white search">
       <view class="search-form radius" bindtap="showAddList">
         <text class="cuIcon-search"></text>
         <input type="text" placeholder="搜索地址" confirm-type="search"></input>
       </view>
     </view>
-  </view>
+  </view> -->
+  
   
   <!-- <view class="cu-bar bg-white solid-bottom" id="cu-bar">
     <view class="action">

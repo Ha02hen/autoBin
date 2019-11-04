@@ -2,11 +2,18 @@
 var markers= []
 // 引入SDK核心类
 var QQMapWX = require('../../libs/qqmap-wx-jssdk.js');
+var bmap = require('../../libs/bmap-wx.min.js');
 
 // 实例化API核心类
 var qqmapsdk = new QQMapWX({
   key: '2R3BZ-YMUKX-SKG4E-7FOP4-AX242-ALFPG' // 必填
 });
+
+var BMap = new bmap.BMapWX({
+  ak: 'gtPbgtTSSRkpgWMdRku0g3qFXCkzeHDH'
+});
+
+var wxMarkerData = [];
 
 Page({
 
@@ -50,8 +57,11 @@ Page({
     suggestion: [],
     selectedId: 0,
     keyword: '',
-    item_list:[]
+    item_list:[],
 
+    ak: 'gtPbgtTSSRkpgWMdRku0g3qFXCkzeHDH',
+    cityInfo: {},
+    address: ''
 
   },
 
@@ -75,6 +85,7 @@ Page({
           markers = markers.concat({
             iconPath: "../../images/trash.png",
             id: parseInt(res.data[i].id),
+            
             callout: {
               content: res.data[i].id,
               fontSize: '20',
@@ -116,29 +127,31 @@ Page({
     //根据文档，先创建一个SelectorQuery对象实例
     let query = wx.createSelectorQuery().in(this);
     //然后逐个取出map和topbar的节点信息
-    //选择器的语法与jQuery语法相同
-    query.select('#customBar').boundingClientRect();
-    query.select('#top').boundingClientRect();
+    //选择器的语法与jQuery语法相同  
+    // query.select('#customBar').boundingClientRect();
     query.select('#map').boundingClientRect();
+    query.select('#top').boundingClientRect();
     // query.select('#cu-bar').boundingClientRect();
 
     // 执行上面所指定的请求，结果会按照顺序存放于一个数组中，在callback的第一个参数中返回
     query.exec((res) => {
       // console.log(res)
       // 分别取出map和topbar的高度
-      let customBar = res[0].height
-      let topHeight = res[1].height;
-      let mapHeight = res[2].height;
+      console.log(res);
+      let mapHeight = res[0].height;
+      // let topHeight = res[1].height
+      // let topHeight = res[2].height;
       // let barHeight = res[3].height;
 
       // 然后就是做个减法
-      let scrollViewHeight = this.data.windowHeight - topHeight - mapHeight - customBar;
+      let scrollViewHeight = this.data.windowHeight - mapHeight;
+      // let scrollViewHeight = this.data.windowHeight - topHeight - mapHeight - customBar;
       // let scrollViewHeight = this.data.windowHeight - topHeight - mapHeight - barHeight - customBar;
 
       // 算出来之后存到data对象里面
       this.setData({
         scrollViewHeight: scrollViewHeight,
-        customBar: customBar
+        // topHeight: topHeight
       });
     });
 
@@ -157,7 +170,7 @@ Page({
   onShow: function () {
 
     let self = this;
-    // 实例化API核心类
+    //实例化API核心类
     qqmapsdk = new QQMapWX({
       key: '2R3BZ-YMUKX-SKG4E-7FOP4-AX242-ALFPG'
     });
@@ -186,7 +199,6 @@ Page({
         });
       }
     })
-
 
     var that = this
     wx.request({
@@ -639,5 +651,50 @@ Page({
     wx.navigateBack({
       delta: 1
     })
-  }
+  },
+  markertap(e) {
+    console.log(e);
+
+    
+    var _this = this;
+    console.log(_this.data.item_list[e.markerId].latitude + ',' + _this.data.item_list[e.markerId].longitude);
+    //调用距离计算接口
+    qqmapsdk.direction({
+      mode: 'driving',//可选值：'driving'（驾车）、'walking'（步行）、'bicycling'（骑行），不填默认：'driving',可不填
+      //from参数不填默认当前地址
+      from: _this.data.latitude + ',' + _this.data.longitude,
+      to: _this.data.item_list[e.markerId].latitude + ',' + _this.data.item_list[e.markerId].longitude,
+      success: function (res) {
+        console.log(res);
+        var ret = res;
+        var coors = ret.result.routes[0].polyline, pl = [];
+        //坐标解压（返回的点串坐标，通过前向差分进行压缩）
+        var kr = 1000000;
+        for (var i = 2; i < coors.length; i++) {
+          coors[i] = Number(coors[i - 2]) + Number(coors[i]) / kr;
+        }
+        //将解压后的坐标放入点串数组pl中
+        for (var i = 0; i < coors.length; i += 2) {
+          pl.push({ latitude: coors[i], longitude: coors[i + 1] })
+        }
+        console.log(pl)
+        //设置polyline属性，将路线显示出来,将解压坐标第一个数据作为起点
+        _this.setData({
+          latitude: pl[0].latitude,
+          longitude: pl[0].longitude,
+          polyline: [{
+            points: pl,
+            color: '#FF0000DD',
+            width: 4
+          }]
+        })
+      },
+      fail: function (error) {
+        console.error(error);
+      },
+      complete: function (res) {
+        console.log(res);
+      }
+    });
+  },
 })
