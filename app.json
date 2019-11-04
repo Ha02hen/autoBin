@@ -1,10 +1,12 @@
 {
   "pages": [
+    
     "pages/map/map",
+    "pages/log/log",
     "pages/about/about",
     "pages/message/message",
     "pages/new/new",
-    "pages/log/log",
+    
     "pages/aboutPage/aboutPage"    
   ],
   "permission": {
@@ -17,28 +19,6 @@
       "version": "1.0.0",
       "provider": "wx76a9a06e5b4e693e"
     }
-  },
-  "tabBar": {
-    "list": [
-      {
-        "pagePath": "pages/map/map",
-        "text": "地图",
-        "iconPath": "/images/tabbar/map.png",
-        "selectedIconPath": "/images/tabbar/map_cur.png"
-      },
-      {
-        "pagePath": "pages/message/message",
-        "text": "消息",
-        "iconPath": "/images/tabbar/message.png",
-        "selectedIconPath": "/images/tabbar/message_cur.png"
-      },
-      {
-        "pagePath": "pages/about/about",
-        "text": "关于",
-        "iconPath": "/images/tabbar/about.png",
-        "selectedIconPath": "/images/tabbar/about_cur.png"
-      }
-    ]
   },
   "window": {
     "navigationStyle": "custom"
