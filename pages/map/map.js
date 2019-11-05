@@ -654,9 +654,22 @@ Page({
   },
   markertap(e) {
     console.log(e);
-
-    
     var _this = this;
+
+    //调用腾讯地图导航插件
+    let plugin = requirePlugin('routePlan');
+    let key = '2R3BZ-YMUKX-SKG4E-7FOP4-AX242-ALFPG';  //使用在腾讯位置服务申请的key
+    let referer = '垃圾桶管理-demo';   //调用插件的app的名称
+    let endPoint = JSON.stringify({  //终点
+      'name': e.markerId+'号垃圾桶',
+      'latitude': _this.data.item_list[e.markerId].latitude,
+      'longitude': _this.data.item_list[e.markerId].longitude
+    });
+    wx.navigateTo({
+      url: 'plugin://routePlan/index?key=' + key + '&referer=' + referer + '&endPoint=' + endPoint
+    });
+    
+    //微信小程序自带路径规划插件
     console.log(_this.data.item_list[e.markerId].latitude + ',' + _this.data.item_list[e.markerId].longitude);
     //调用距离计算接口
     qqmapsdk.direction({
@@ -684,7 +697,7 @@ Page({
           longitude: pl[0].longitude,
           polyline: [{
             points: pl,
-            color: '#FF0000DD',
+            color: '#4169E1',
             width: 4
           }]
         })
