@@ -25,7 +25,7 @@ Page({
     var that = this
     wx.request({
       // url: 'http://106.54.103.171/test.php',
-      url: 'https://hao2hen.com/test.php',
+      url: 'https://hao2hen.com/usr/uploads/wechat-app/recycle/recycle_show.php',
       method: 'GET',
       header: { 'Content-Type': 'application/json' },
       data: {},
@@ -134,7 +134,7 @@ Page({
     console.log(e.detail.value)
     console.log(Id)
     wx.request({
-      url: 'https://hao2hen.com/form.php',
+      url: 'https://hao2hen.com/usr/uploads/wechat-app/recycle/recycle_submit.php',
       header: {
         "Content-Type": "application/x-www-form-urlencoded"
       },

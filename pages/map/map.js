@@ -72,7 +72,7 @@ Page({
     var that = this
     wx.request({
       // url: 'http://106.54.103.171/test.php',
-      url: 'https://hao2hen.com/test.php',
+      url: 'https://hao2hen.com/usr/uploads/wechat-app/recycle/recycle_show.php',
       method: 'GET',
       header: { 'Content-Type': 'application/json' },
       data: {},
@@ -203,7 +203,7 @@ Page({
     var that = this
     wx.request({
       // url: 'http://106.54.103.171/test.php',
-      url: 'https://hao2hen.com/test.php',
+      url: 'https://hao2hen.com/usr/uploads/wechat-app/recycle/recycle_show.php',
       method: 'GET',
       header: { 'Content-Type': 'application/json' },
       data: {},
